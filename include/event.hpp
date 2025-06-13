@@ -35,12 +35,12 @@ private:
 
 	hadlers_type handlers_;
 public:
-	IEvent<Args...> & operator+=(handler_type handler) {
+	IEvent<Args...> & operator+=(handler_type handler) override {
 		handlers_.push_back(handler);
 		return *this;
 	}
 
-	IEvent<Args...> & operator-=(handler_type handler) {
+	IEvent<Args...> & operator-=(handler_type handler) override {
 		auto it = std::begin(handlers_);
 		for (; it != std::end(handlers_) && (*it != handler); ++it) { }
 		if(it != std::end(handlers_)) 
@@ -49,7 +49,7 @@ public:
 		return *this;
 	}
 
-	void call(Args... args) {
+	void invoke(Args... args) {
 		for(auto& handler : handlers_) 
 			(*handler)(std::forward(args...));
 	}

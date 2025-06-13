@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_compile_options(-g)
-add_compile_definitions(DEBUG GLEW_NO_GLU)
+add_compile_definitions(DEBUG GLEW_NO_GLU GLFW_INCLUDE_NONE)
 
 set(OPENGL_LIBS GLX glfw OpenGL GLEW)
 
@@ -25,9 +25,11 @@ set(SRC_LIB src_lib)
 
 add_library(${SRC_LIB} STATIC ${SRC})
 
-target_include_directories(${SRC_LIB} PUBLIC "include")
+include_directories(${SRC_LIB} PUBLIC "include")
 target_link_libraries(${SRC_LIB} ${OPENGL_LIBS})
 
 # for testing
 add_executable(main main.cpp)
-target_link_libraries(main ${SRC_LIB} GLX glfw OpenGL GLEW)
+target_link_libraries(main ${SRC_LIB})
+
+add_subdirectory("./tests/")
