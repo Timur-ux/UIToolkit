@@ -12,8 +12,15 @@ namespace ui {
 
 class IKeyboard {
 public:
-	event::IEvent<ButtonInfo> &onButtonPress;
-	event::IEvent<ButtonInfo> &onButtonRelease;
+  IKeyboard(event::IEvent<ButtonInfo> &onButtonPress_,
+            event::IEvent<ButtonInfo> &onButtonRelease_)
+      : onButtonPress(onButtonPress_), onButtonRelease(onButtonRelease_) {}
+
+  event::IEvent<ButtonInfo> &onButtonPress;
+  event::IEvent<ButtonInfo> &onButtonRelease;
+
+  virtual bool isPressed(ButtonInfo button) = 0;
+  virtual bool isReleased(ButtonInfo button) = 0;
 };
 } // namespace ui
 

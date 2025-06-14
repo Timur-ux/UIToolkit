@@ -7,20 +7,38 @@
 
 #include "IWindow.hpp"
 #include "OpenGLHeaders.hpp"
+#include "core/Keyboard.hpp"
+#include "core/Mouse.hpp"
+#include <memory>
 
 namespace core {
 class Window : public ui::IWindow {
   GLFWwindow *window_ = 0;
 
-	int windowX_ = 0, windowY_ = 0;
-	int height_ = 600, width_ = 800;
+  int windowX_ = 0, windowY_ = 0;
+  int height_ = 600, width_ = 800;
 
-	void destroy();
-	void updateViewport();
+  std::unique_ptr<core::Mouse> mouse_;
+  std::unique_ptr<core::Keyboard> keyboard_;
+
+  void destroy();
+  void updateViewport();
+
 public:
-  Window(ui::IMouse &theMouse, ui::IKeyboard &theKeyboard, std::string title,
+  struct Size {
+    int width, height;
+  };
+
+  struct Position {
+    int x, y;
+  };
+
+  Window(std::unique_ptr<core::Mouse> &&theMouse,
+         std::unique_ptr<core::Keyboard> &&theKeyboard, std::string title,
          int width = 800, int height = 600, bool resizeable = true);
   ~Window();
+
+	IWindow & close() override;
 
   IWindow &focus() override;
   IWindow &minimize() override;
@@ -30,8 +48,11 @@ public:
 
   IWindow &fullscreen() override;
   IWindow &windowed() override;
-	
-	void startRenderLoop() override;
+
+  void startRenderLoop() override;
+
+  Size size() const { return Size{.width = width_, .height = height_}; }
+	Position position() const {return Position{.x = windowX_, .y = windowY_};}
 };
 } // namespace core
 #endif // !OPENGL_WINDOW_HPP_

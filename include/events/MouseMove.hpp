@@ -7,13 +7,11 @@
 namespace event {
 
 class MouseMove : public IUIEvent<ui::MousePosition> {
-	static double x_, y_;
 public:
   MouseMove();
   ~MouseMove();
 
   void registry(GLFWwindow *window) override;
-  void updatePosition(double newX, double newY);
 };
 } // namespace event
 #endif // !EVENT_MOUSE_MOVE_HPP_

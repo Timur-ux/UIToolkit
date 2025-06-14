@@ -2,7 +2,7 @@
 #define KEYBOARD_DEFINITIONS_HPP_
 namespace ui {
 struct ButtonInfo {
-	int code;
+	int key;
 };
 } // namespace ui
 #endif // !KEYBOARD_DEFINITIONS_HPP_

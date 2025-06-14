@@ -5,18 +5,43 @@
 #include <cassert>
 using namespace core;
 
-Window::Window(ui::IMouse &theMouse, ui::IKeyboard &theKeyboard, std::string title, int width, int height, bool resizeable)
-	: ui::IWindow(theMouse, theKeyboard), width_(width), height_(height) {
+Window::Window(std::unique_ptr<core::Mouse> &&theMouse,
+         std::unique_ptr<core::Keyboard> &&theKeyboard, std::string title,
+         int width, int height, bool resizeable)
+	: ui::IWindow(*theMouse, *theKeyboard), mouse_(std::move(theMouse)), keyboard_(std::move(theKeyboard)), width_(width), height_(height) {
+
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, resizeable ? GL_TRUE : GL_FALSE);
+
 	window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 	if(!window_)
 		utils::error() << "Can't create glfw window!";
 
 	focus();
+
+	glewExperimental = GL_TRUE;
+	if(glewInit() != GLEW_OK) 
+		utils::error() << "Can't init glew!";
+
+	mouse_->registryEvents(window_);
+	keyboard_->registryEvents(window_);
+	
+}
+
+ui::IWindow & Window::close() {
+	assert(window_);
+	destroy();
+
+	return *this;
 }
 
 void Window::updateViewport() {
 	assert(window_);
+	glfwGetWindowPos(window_, &windowX_, &windowY_);
+	glfwGetWindowSize(window_, &width_, &height_);
 	glViewport(windowX_, windowY_, width_, height_);
 }
 
@@ -34,8 +59,9 @@ void Window::startRenderLoop() {
 		utils::error() << "Window not created or destroyed. Can't start render loop";
 
 	while(!glfwWindowShouldClose(window_)) {
-		glfwPollEvents();
 		glfwSwapBuffers(window_);
+
+		glfwPollEvents();
 		updateViewport();
 	}
 };
@@ -56,12 +82,14 @@ ui::IWindow &Window::minimize() {
 ui::IWindow &Window::resize(double newWidth, double newHeight) {
 	assert(window_);
 	width_ = newWidth, height_ = newHeight;
+	glfwSetWindowSize(window_, width_, height_);
 	return *this;
 }
 
 ui::IWindow &Window::move(double newX, double newY) {
 	assert(window_);
 	windowX_ = newX, windowY_ = newY;
+	glfwSetWindowPos(window_, windowX_, windowY_);
 	return *this;
 }
 

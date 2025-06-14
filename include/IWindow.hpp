@@ -15,6 +15,8 @@ public:
 	IMouse & mouse;
 	IKeyboard & keyboard;
 
+	virtual IWindow & close() = 0;
+
 	virtual IWindow & focus() = 0;
 	virtual IWindow & minimize() = 0;
 

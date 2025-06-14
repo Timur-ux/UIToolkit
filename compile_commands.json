@@ -1,9 +1,39 @@
 [
 {
   "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Keyboard.cpp.o -c /home/raison/git/UIToolkit/src/core/Keyboard.cpp",
+  "file": "/home/raison/git/UIToolkit/src/core/Keyboard.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/core/Keyboard.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Mouse.cpp.o -c /home/raison/git/UIToolkit/src/core/Mouse.cpp",
+  "file": "/home/raison/git/UIToolkit/src/core/Mouse.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/core/Mouse.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
   "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Window.cpp.o -c /home/raison/git/UIToolkit/src/core/Window.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/Window.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/Window.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/KeyboardClick.cpp.o -c /home/raison/git/UIToolkit/src/events/KeyboardClick.cpp",
+  "file": "/home/raison/git/UIToolkit/src/events/KeyboardClick.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/events/KeyboardClick.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/MouseClick.cpp.o -c /home/raison/git/UIToolkit/src/events/MouseClick.cpp",
+  "file": "/home/raison/git/UIToolkit/src/events/MouseClick.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/events/MouseClick.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/MouseMove.cpp.o -c /home/raison/git/UIToolkit/src/events/MouseMove.cpp",
+  "file": "/home/raison/git/UIToolkit/src/events/MouseMove.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/events/MouseMove.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
