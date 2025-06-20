@@ -1,5 +1,6 @@
 #include "core/Window.hpp"
 #include "IWindow.hpp"
+#include "core/OpenGLHeaders.hpp"
 #include "utils/error.hpp"
 #include <GLFW/glfw3.h>
 #include <cassert>
@@ -33,7 +34,7 @@ Window::Window(std::unique_ptr<core::Mouse> &&theMouse,
 
 ui::IWindow & Window::close() {
 	assert(window_);
-	destroy();
+	glfwSetWindowShouldClose(window_, 1);
 
 	return *this;
 }
@@ -46,10 +47,6 @@ void Window::updateViewport() {
 }
 
 Window::~Window() {
-	destroy();
-}
-
-void Window::destroy() {
 	glfwDestroyWindow(window_);
 	window_ = nullptr;
 }
@@ -61,8 +58,8 @@ void Window::startRenderLoop() {
 	while(!glfwWindowShouldClose(window_)) {
 		glfwSwapBuffers(window_);
 
-		glfwPollEvents();
 		updateViewport();
+		glfwPollEvents();
 	}
 };
 

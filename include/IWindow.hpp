@@ -27,6 +27,8 @@ public:
 	virtual IWindow & windowed() = 0; 
 
 	virtual void startRenderLoop() = 0;
+
+	virtual ~IWindow() = default;
 };
 } // namespace ui
 #endif // !UI_WINDOW_HPP_

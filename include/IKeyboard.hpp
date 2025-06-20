@@ -21,6 +21,9 @@ public:
 
   virtual bool isPressed(ButtonInfo button) = 0;
   virtual bool isReleased(ButtonInfo button) = 0;
+
+
+	virtual ~IKeyboard() = default;
 };
 } // namespace ui
 

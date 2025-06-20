@@ -21,7 +21,6 @@ class Window : public ui::IWindow {
   std::unique_ptr<core::Mouse> mouse_;
   std::unique_ptr<core::Keyboard> keyboard_;
 
-  void destroy();
   void updateViewport();
 
 public:

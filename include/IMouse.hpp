@@ -24,6 +24,9 @@ public:
   virtual MousePosition position() const = 0;
   virtual bool isPressed(MouseButton) const = 0;
   virtual bool isReleased(MouseButton) const = 0;
+
+
+	virtual ~IMouse() = default;
 };
 } // namespace ui
 #endif // !UI_MOUSE_HPP_
