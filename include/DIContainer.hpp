@@ -4,27 +4,30 @@
 #include <csignal>
 #include <functional>
 #include <memory>
+#include <utility>
 namespace deps {
 
-template <typename TArg>
+template <typename ...Args>
 class DI {
-	std::unique_ptr<DI<TArg>> next_ = {nullptr};
-	std::function<void(TArg)> handler_;
+	std::unique_ptr<DI<Args...>> next_ = {nullptr};
+	std::function<void(Args...)> handler_;
 public:
-	DI(std::function<void(TArg)> handler)
+	DI(std::function<void(Args...)> handler)
 		: handler_(handler) {}
 
-	DI & inject(std::unique_ptr<DI<TArg>> && dep) {
+	DI & inject(std::unique_ptr<DI<Args...>> && dep) {
 		dep->next_ = std::move(next_);
 		next_ = std::move(dep);
 		
 		return *this;
 	}
 
-	DI & process(TArg arg) {
-		handler_(arg);
+	DI & process(Args... args) {
+		handler_(std::forward(args...));
 		if(next_) 
-			next_->process(arg);
+			next_->process(std::forward(args...));
+
+		return *this;
 	}
 };
 } // namespace deps
