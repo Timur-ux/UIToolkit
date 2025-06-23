@@ -15,6 +15,7 @@ class IVertexBufferObject {
 public:
   virtual GLuint id() const = 0;
   virtual IVertexBufferObject &bind() = 0;
+  virtual IVertexBufferObject &unbind() = 0;
 	virtual IVertexBufferObject &setData(GLsizeiptr memorySize, const void * memory) = 0;
 	virtual IVertexBufferObject &removeData() = 0;
 	virtual IVertexBufferObject &setVertexAttribute(IAttribute &attrib, const void * offset) = 0;
@@ -70,6 +71,10 @@ public:
 
 	IVertexBufferObject & bind() override {
 		glBindBuffer(BufferType, id_);
+		return *this;
+	}
+	IVertexBufferObject & unbind() override {
+		glBindBuffer(BufferType, 0);
 		return *this;
 	}
 

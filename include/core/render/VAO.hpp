@@ -9,6 +9,7 @@ class IVertexArrayObject {
 public:
   virtual GLuint id() const = 0;
   virtual IVertexArrayObject &bind() = 0;
+  virtual IVertexArrayObject &unbind() = 0;
 
   virtual ~IVertexArrayObject() = default;
 };
@@ -46,6 +47,12 @@ public:
 
     return *this;
   }
+
+	IVertexArrayObject & unbind() override {
+    glBindVertexArray(0);
+
+    return *this;
+	}
 };
 
 } // namespace render
