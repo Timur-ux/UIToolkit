@@ -5,7 +5,7 @@ using namespace core::render;
 
 IAttributeSetter &
 AttributeSetter::addAttribute(std::shared_ptr<IAttribute> attribute,
-                              std::shared_ptr<void> memory,
+                              std::shared_ptr<GLbyte[]> memory,
                               GLintptr memorySize) {
   if (setterDI_)
     setterDI_->inject(std::move(
@@ -26,7 +26,7 @@ IAttributeSetter &AttributeSetter::setAttributesTo(IVertexBufferObject &vbo) {
 }
 
 AttributeSetterItem::AttributeSetterItem(std::shared_ptr<IAttribute> attribute,
-                                         std::shared_ptr<void> data,
+                                         std::shared_ptr<GLbyte[]> data,
                                          GLsizeiptr dataSize)
 
     : deps::DI<IVertexBufferObject &, GLintptr &>(

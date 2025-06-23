@@ -12,7 +12,7 @@ class IAttributeSetter {
 
 public:
   virtual IAttributeSetter &addAttribute(std::shared_ptr<IAttribute> attribute,
-                                         std::shared_ptr<void> memory,
+                                         std::shared_ptr<GLbyte[]> memory,
                                          GLintptr memorySize) = 0;
   virtual IAttributeSetter &setAttributesTo(IVertexBufferObject &vbo) = 0;
 };
@@ -24,7 +24,7 @@ class AttributeSetter : public IAttributeSetter {
 
 public:
   IAttributeSetter &addAttribute(std::shared_ptr<IAttribute> attribute,
-                                 std::shared_ptr<void> memory,
+                                 std::shared_ptr<GLbyte[]> memory,
                                  GLintptr memorySize) override;
   IAttributeSetter &setAttributesTo(IVertexBufferObject &vbo) override;
 };
@@ -32,7 +32,7 @@ public:
 class AttributeSetterItem : public deps::DI<IVertexBufferObject &, GLintptr &> {
 public:
   AttributeSetterItem(std::shared_ptr<IAttribute> attribute,
-                      std::shared_ptr<void> data, GLsizeiptr dataSize);
+                      std::shared_ptr<GLbyte[]> data, GLsizeiptr dataSize);
 };
 } // namespace render
 } // namespace core

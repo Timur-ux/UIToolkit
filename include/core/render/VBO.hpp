@@ -64,6 +64,10 @@ public:
     return *this;
   }
 
+	GLuint id() const override {
+		return id_;
+	}
+
 	IVertexBufferObject & bind() override {
 		glBindBuffer(BufferType, id_);
 		return *this;
