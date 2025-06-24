@@ -1,16 +1,25 @@
 #ifndef CORE_RENDER_PROGRAM_HPP_
 #define CORE_RENDER_PROGRAM_HPP_
-// -----------------------------------
-// |  Render program implementation  |
-// -----------------------------------
+#include "IBindable.hpp"
+#include "core/render/IProgram.hpp"
+#include "core/render/Shader.hpp"
+#include <string>
 
-class IProgram {
+namespace core::render {
+class Program : public IProgram {
+	GLuint id_;
+	Shader<ShaderType::VERTEX> vertexShader_;
+	Shader<ShaderType::FRAGMENT> fragmentShader_;
 public:
-	virtual IProgram & bind() = 0;
-	virtual IProgram & unbind() = 0;
-	virtual IProgram & () = 0;
-	virtual IProgram & unbind() = 0;
-	
+	Program(std::string fileName);
+	~Program();
+
+	IBindable & bind() override;
+	IBindable & unbind(GLuint oldBind = 0) override;
+	void setUniform(uniform_setter &) override;
+	void linkShader(GLuint shaderId) override;
+	GLint getUniformLocation(std::string name) override;
 };
 
+} // namespace core::render
 #endif // !CORE_RENDER_PROGRAM_HPP_

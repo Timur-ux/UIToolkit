@@ -1,16 +1,13 @@
 #ifndef CORE_RENDER_HPP_
 #define CORE_RENDER_HPP_
+#include "IBindable.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include <functional>
 namespace core {
 namespace render {
 
-class IVertexArrayObject {
+class IVertexArrayObject : public IBindable {
 public:
-  virtual GLuint id() const = 0;
-  virtual IVertexArrayObject &bind() = 0;
-  virtual IVertexArrayObject &unbind() = 0;
-
   virtual ~IVertexArrayObject() = default;
 };
 
@@ -40,16 +37,15 @@ public:
 		id_ = 0;
 	}
 
-  GLuint id() const override { return id_; }
 
-  IVertexArrayObject &bind() override {
+  IBindable &bind() override {
     glBindVertexArray(id_);
 
     return *this;
   }
 
-	IVertexArrayObject & unbind() override {
-    glBindVertexArray(0);
+	IBindable & unbind(GLuint oldBind = 0) override {
+    glBindVertexArray(oldBind);
 
     return *this;
 	}

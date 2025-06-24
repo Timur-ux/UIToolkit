@@ -5,17 +5,15 @@
 // |  Vertex buffer object used to store vertex data in GPU  |
 // -----------------------------------------------------------
 
+#include "IBindable.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include "core/render/Attribute.hpp"
 
 namespace core {
 namespace render {
 
-class IVertexBufferObject {
+class IVertexBufferObject : public IBindable {
 public:
-  virtual GLuint id() const = 0;
-  virtual IVertexBufferObject &bind() = 0;
-  virtual IVertexBufferObject &unbind() = 0;
 	virtual IVertexBufferObject &setData(GLsizeiptr memorySize, const void * memory) = 0;
 	virtual IVertexBufferObject &removeData() = 0;
 	virtual IVertexBufferObject &setVertexAttribute(IAttribute &attrib, const void * offset) = 0;
@@ -65,16 +63,14 @@ public:
     return *this;
   }
 
-	GLuint id() const override {
-		return id_;
-	}
 
-	IVertexBufferObject & bind() override {
+	IBindable & bind() override {
 		glBindBuffer(BufferType, id_);
 		return *this;
 	}
-	IVertexBufferObject & unbind() override {
-		glBindBuffer(BufferType, 0);
+
+	IBindable & unbind(GLuint oldBind = 0) override {
+		glBindBuffer(BufferType, oldBind);
 		return *this;
 	}
 

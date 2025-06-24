@@ -1,6 +1,7 @@
 #ifndef CORE_RENDER_TEXTURE_HPP_
 #define CORE_RENDER_TEXTURE_HPP_
 #include "DIContainer.hpp"
+#include "IBindable.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include <memory>
 
@@ -11,11 +12,8 @@ concept TextureType = (I == GL_TEXTURE_1D) || (I == GL_TEXTURE_2D) ||
 template <GLenum I>
 concept ImageType = (I == GL_RGB) || (I == GL_RGBA) || (I == GL_ALPHA);
 
-class ITexture {
+class ITexture : public IBindable {
 public:
-  virtual GLuint id() const = 0;
-  virtual ITexture &bind() = 0;
-  virtual ITexture &unbind() = 0;
   virtual bool isImageLoaded() const = 0;
   virtual ITexture &loadImage(const GLubyte *data, GLsizei width,
                               GLsizei height, GLsizei depth) = 0;
@@ -63,18 +61,17 @@ public:
   constexpr GLenum imageType() const override { return TImage; }
   constexpr size_t textureBlock() const override { return TBlock; }
 
-  GLuint id() const override { return id_; }
   bool isImageLoaded() const override { return isImageLoaded_; }
 
-  ITexture &bind() override {
+  IBindable &bind() override {
     glActiveTexture(TBlock);
     glBindTexture(TTexture, id_);
 
     return *this;
   }
 
-  ITexture &unbind() override {
-    glBindTexture(TTexture, 0);
+  IBindable &unbind(GLuint oldBind = 0) override {
+    glBindTexture(TTexture, oldBind);
 
     return *this;
   }
