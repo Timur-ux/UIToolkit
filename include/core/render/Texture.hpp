@@ -1,9 +1,8 @@
 #ifndef CORE_RENDER_TEXTURE_HPP_
 #define CORE_RENDER_TEXTURE_HPP_
-#include "DIContainer.hpp"
 #include "IBindable.hpp"
 #include "core/OpenGLHeaders.hpp"
-#include <memory>
+#include <functional>
 
 namespace core::render {
 template <GLenum I>
@@ -12,7 +11,7 @@ concept TextureType = (I == GL_TEXTURE_1D) || (I == GL_TEXTURE_2D) ||
 template <GLenum I>
 concept ImageType = (I == GL_RGB) || (I == GL_RGBA) || (I == GL_ALPHA);
 
-class ITexture : public IBindable {
+class ITexture : public IBindable<GLuint> {
 public:
   virtual bool isImageLoaded() const = 0;
   virtual ITexture &loadImage(const GLubyte *data, GLsizei width,
@@ -23,8 +22,26 @@ public:
   virtual size_t textureBlock() const = 0;
 };
 
-using preinit_param_t = deps::DI<>;
-using postinit_param_t = deps::DI<ITexture &>;
+using preinit_param_t = std::function<void()>;
+using postinit_param_t = std::function<void(ITexture &)>;
+
+template <GLenum TTexture> struct texture_bind_map {};
+
+template <> struct texture_bind_map<GL_TEXTURE_1D> {
+  static constexpr GLenum type = GL_TEXTURE_BINDING_1D;
+};
+
+template <> struct texture_bind_map<GL_TEXTURE_2D> {
+  static constexpr GLenum type = GL_TEXTURE_BINDING_2D;
+};
+
+template <> struct texture_bind_map<GL_TEXTURE_3D> {
+  static constexpr GLenum type = GL_TEXTURE_BINDING_3D;
+};
+
+template <> struct texture_bind_map<GL_TEXTURE_CUBE_MAP> {
+  static constexpr GLenum type = GL_TEXTURE_BINDING_CUBE_MAP;
+};
 
 template <GLenum TTexture, GLenum TImage, size_t TBlock = 0>
   requires TextureType<TTexture> && ImageType<TImage> && (TBlock < 16)
@@ -36,10 +53,10 @@ class Texture : public ITexture {
 
 public:
   Texture(preinit_param_t &preinitParams, postinit_param_t &postinitParams) {
-    preinitParams.process();
+    preinitParams();
     glGenTextures(1, &id_);
     bind();
-    textureParams(*this);
+    postinitParams(*this);
   }
 
   Texture(class_type &other) = delete;
@@ -76,6 +93,11 @@ public:
     return *this;
   }
 
+	GLuint getCurrentBind() override {
+		GLuint result;
+		return glGetTexParameteriv(TTexture, texture_bind_map<TTexture>::type, &result);
+	}
+
   ITexture &loadImage(const GLubyte *data, GLsizei width, GLsizei height = 0,
                       GLsizei depth = 0) override {
     switch (TTexture) {
@@ -95,18 +117,22 @@ public:
   }
 };
 
-inline const preinit_param_t basePreinitParams{
-    []() { glPixelStorei(GL_UNPACK_ALIGNMENT, 1); }};
-inline const postinit_param_t basePostinitParams =
-    std::move(postinit_param_t{[](ITexture &tex) {
-      glTexParameteri(tex.textureType(), GL_TEXTURE_WRAP_S, GL_REPEAT);
-      if (tex.textureType() > GL_TEXTURE_1D)
-        glTexParameteri(tex.textureType(), GL_TEXTURE_WRAP_R, GL_REPEAT);
-      if (tex.textureType() > GL_TEXTURE_2D)
-        glTexParameteri(tex.textureType(), GL_TEXTURE_WRAP_T, GL_REPEAT);
-      glTexParameteri(tex.textureType(), GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-      glTexParameteri(tex.textureType(), GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    }});
+inline const preinit_param_t basePreinitParams = []() {
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+};
+
+inline const postinit_param_t basePostinitParams = [](ITexture &tex) {
+  glTexParameteri(tex.textureType(), GL_TEXTURE_WRAP_S, GL_REPEAT);
+
+  if (tex.textureType() > GL_TEXTURE_1D)
+    glTexParameteri(tex.textureType(), GL_TEXTURE_WRAP_R, GL_REPEAT);
+
+  if (tex.textureType() > GL_TEXTURE_2D)
+    glTexParameteri(tex.textureType(), GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+  glTexParameteri(tex.textureType(), GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(tex.textureType(), GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+};
 
 } // namespace core::render
 #endif // !CORE_RENDER_TEXTURE_HPP_

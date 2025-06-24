@@ -26,11 +26,14 @@ Program::Program(std::string filename) {
     utils::error()
         << "Shader file: header of fragment shader [// fragment] not found";
 
+	std::cout << text << std::endl;
   vertexShader_.init(text);
   text = "";
   while (std::getline(file, line))
     text += line + '\n';
 
+	std::cout << "......................" << std::endl;
+	std::cout << text << std::endl;
   fragmentShader_.init(text);
 
   id_ = glCreateProgram();
@@ -61,16 +64,22 @@ GLint Program::getUniformLocation(std::string name) {
 	return glGetUniformLocation(id_, name.c_str());
 }
 
-IBindable & Program::bind() {
+IBindable<GLuint> & Program::bind() {
 	glUseProgram(id_);
 
 	return *this;
 }
 
-IBindable & Program::unbind(GLuint oldBind) {
+IBindable<GLuint> & Program::unbind(GLuint oldBind) {
 	glUseProgram(oldBind);
 
 	return *this;
+}
+
+GLuint Program::getCurrentBind() {
+	GLint result;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &result);
+	return result;
 }
 
 void Program::setUniform(uniform_setter &setter) {

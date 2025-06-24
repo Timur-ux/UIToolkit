@@ -5,8 +5,10 @@
 #include <memory>
 
 
-void setRectangleVertexes(core::render::IAttributeSetter & setter, size_t location) {
+void setRectangleVertexes(core::render::IMesh &mesh, size_t location) {
 	std::shared_ptr<core::render::Attribute<GLfloat, 3, true>> attribute{new core::render::Attribute<GLfloat, 3, true>{location}};
+	std::shared_ptr<core::render::Attribute<GLubyte, 1, true>> indexesAttribute{new core::render::Attribute<GLubyte, 1, true>{location}};
+
 	
 	std::shared_ptr<GLbyte[]> memory{(GLbyte*)(new glm::vec3[4] {
 		{-.5, -.5, .0},
@@ -15,8 +17,10 @@ void setRectangleVertexes(core::render::IAttributeSetter & setter, size_t locati
 		{-.5, .5, 0}
 	})};
 	size_t memorySize = sizeof(core::render::Vertex) * 4;
+	std::shared_ptr<GLbyte[]> indexes{(GLbyte*)new GLubyte[4] { 0, 1, 2, 3 }};
 
-	setter.addAttribute(attribute, memory, memorySize);
+	mesh.attributes().addAttribute(attribute, memory, memorySize);
+	mesh.vertexIndexesSetter().addAttribute(indexesAttribute, indexes, sizeof(GLubyte) * 4);
 }
 
 void setColor(core::render::IAttributeSetter & setter, glm::vec4 color, size_t nVertex, size_t location) {

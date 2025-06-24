@@ -51,15 +51,16 @@ Window::~Window() {
 	window_ = nullptr;
 }
 
-void Window::startRenderLoop() {
+void Window::startRenderLoop(std::function<void()> & renderFunc) {
 	if(!window_) 
 		utils::error() << "Window not created or destroyed. Can't start render loop";
 
 	while(!glfwWindowShouldClose(window_)) {
 		glfwSwapBuffers(window_);
 
-		updateViewport();
 		glfwPollEvents();
+		renderFunc();
+		updateViewport();
 	}
 };
 

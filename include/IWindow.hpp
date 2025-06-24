@@ -26,7 +26,7 @@ public:
 	virtual IWindow & fullscreen() = 0; 
 	virtual IWindow & windowed() = 0; 
 
-	virtual void startRenderLoop() = 0;
+	virtual void startRenderLoop(std::function<void()> & renderFunc) = 0;
 
 	virtual ~IWindow() = default;
 };

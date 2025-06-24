@@ -6,7 +6,7 @@
 namespace core {
 namespace render {
 
-class IVertexArrayObject : public IBindable {
+class IVertexArrayObject : public IBindable<GLuint> {
 public:
   virtual ~IVertexArrayObject() = default;
 };
@@ -48,6 +48,11 @@ public:
     glBindVertexArray(oldBind);
 
     return *this;
+	}
+	GLuint getCurrentBind() override {
+		GLint result;
+		glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &result);
+		return result;
 	}
 };
 

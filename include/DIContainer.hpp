@@ -23,9 +23,9 @@ public:
 	}
 
 	DI & process(Args... args) {
-		handler_(std::forward(args...));
+		handler_(args...);
 		if(next_) 
-			next_->process(std::forward(args...));
+			next_->process(args...);
 
 		return *this;
 	}

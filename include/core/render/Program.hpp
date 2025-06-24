@@ -16,6 +16,7 @@ public:
 
 	IBindable & bind() override;
 	IBindable & unbind(GLuint oldBind = 0) override;
+	GLuint getCurrentBind() override;
 	void setUniform(uniform_setter &) override;
 	void linkShader(GLuint shaderId) override;
 	GLint getUniformLocation(std::string name) override;

@@ -7,10 +7,12 @@
 #include "IEntity.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include "core/render/AttributeSetter.hpp"
+#include "core/render/IProgram.hpp"
 #include "core/render/VAO.hpp"
 #include "core/render/VBO.hpp"
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/glm.hpp>
+#include <memory>
 
 namespace core::render {
 class IMesh : public ui::IEntity {
@@ -31,13 +33,15 @@ class MeshBase : public IMesh {
 
   bool initialized_ = false;
 	void init();
+	std::shared_ptr<IProgram> program_;
+	GLenum renderType_;
 
 public:
+	MeshBase(std::shared_ptr<IProgram>, GLenum renderType = GL_TRIANGLE_FAN);
   const glm::mat4 &model() const override;
 	IAttributeSetter &attributes() override;
 	IAttributeSetter & vertexIndexesSetter() override;
 	IEntity & render() override;
-
 };
 } // namespace core::render
 

@@ -12,41 +12,52 @@
 namespace core {
 namespace render {
 
-class IVertexBufferObject : public IBindable {
+class IVertexBufferObject : public IBindable<GLuint> {
 public:
-	virtual IVertexBufferObject &setData(GLsizeiptr memorySize, const void * memory) = 0;
-	virtual IVertexBufferObject &removeData() = 0;
-	virtual IVertexBufferObject &setVertexAttribute(IAttribute &attrib, const void * offset) = 0;
-	virtual IVertexBufferObject &copySubData(GLintptr offset, GLsizeiptr memorySize, const void * memory) = 0;
+  virtual IVertexBufferObject &setData(GLsizeiptr memorySize,
+                                       const void *memory) = 0;
+  virtual IVertexBufferObject &removeData() = 0;
+  virtual IVertexBufferObject &setVertexAttribute(IAttribute &attrib,
+                                                  const void *offset) = 0;
+  virtual IVertexBufferObject &
+  copySubData(GLintptr offset, GLsizeiptr memorySize, const void *memory) = 0;
 
-	virtual void * memoryMapToRead(GLintptr offset, GLsizeiptr length) = 0;
-	virtual void * memoryMapToWrite(GLintptr offset, GLsizeiptr length) = 0;
-	virtual IVertexBufferObject & memoryUnmap() = 0;
+  virtual void *memoryMapToRead(GLintptr offset, GLsizeiptr length) = 0;
+  virtual void *memoryMapToWrite(GLintptr offset, GLsizeiptr length) = 0;
+  virtual IVertexBufferObject &memoryUnmap() = 0;
 
-	virtual ~IVertexBufferObject() = default;
+  virtual ~IVertexBufferObject() = default;
 };
 
 template <GLenum I>
 concept VBOType = (I == GL_ARRAY_BUFFER) || (I == GL_ELEMENT_ARRAY_BUFFER);
 
-template<GLenum I>
-concept VBOUsage = (I == GL_STATIC_DRAW) || (I == GL_DYNAMIC_DRAW) || (I == GL_STATIC_READ) || (I == GL_DYNAMIC_READ);
+template <GLenum I>
+concept VBOUsage = (I == GL_STATIC_DRAW) || (I == GL_DYNAMIC_DRAW) ||
+                   (I == GL_STATIC_READ) || (I == GL_DYNAMIC_READ);
+
+template <GLenum BufferType> struct buffer_binding_map {};
+
+template <> struct buffer_binding_map<GL_ARRAY_BUFFER> {
+  static constexpr GLenum type = GL_ARRAY_BUFFER_BINDING;
+};
+template <> struct buffer_binding_map<GL_ELEMENT_ARRAY_BUFFER> {
+  static constexpr GLenum type = GL_ELEMENT_ARRAY_BUFFER_BINDING;
+};
 
 template <GLenum BufferType, GLenum BufferUsage>
-	requires VBOType<BufferType> && VBOUsage<BufferUsage>
+  requires VBOType<BufferType> && VBOUsage<BufferUsage>
 class VertexBufferObject : public IVertexBufferObject {
 private:
   GLuint id_;
 
-	void *memoryMap(GLsizeiptr length, GLintptr offset, GLbitfield access) {
-		bind();
-		return glMapBufferRange(BufferType, offset, length, access);
-	}
-public:
-  VertexBufferObject() {
-    glGenBuffers(1, &id_);
-  };
+  void *memoryMap(GLsizeiptr length, GLintptr offset, GLbitfield access) {
+    bind();
+    return glMapBufferRange(BufferType, offset, length, access);
+  }
 
+public:
+  VertexBufferObject() { glGenBuffers(1, &id_); };
 
   VertexBufferObject(VertexBufferObject &) = delete;
   VertexBufferObject &operator=(VertexBufferObject &) = delete;
@@ -63,64 +74,73 @@ public:
     return *this;
   }
 
+  IBindable &bind() override {
+    glBindBuffer(BufferType, id_);
+    return *this;
+  }
 
-	IBindable & bind() override {
-		glBindBuffer(BufferType, id_);
+  IBindable &unbind(GLuint oldBind = 0) override {
+    glBindBuffer(BufferType, oldBind);
+    return *this;
+  }
+
+  GLuint getCurrentBind() override {
+    GLint result;
+    glGetIntegerv(buffer_binding_map<BufferType>::type, &result);
+    return result;
+  }
+
+  IVertexBufferObject &setData(GLsizeiptr memorySize,
+                               const void *memory) override {
+    bind();
+    glBufferData(BufferType, memorySize, memory, BufferUsage);
+    return *this;
+  }
+
+  IVertexBufferObject &removeData() override {
+    bind();
+    glBufferData(BufferType, 0, NULL, BufferUsage);
+    return *this;
+  }
+
+  IVertexBufferObject &setVertexAttribute(IAttribute &attrib,
+                                          const void *offset) override {
+    bind();
+    glEnableVertexAttribArray(attrib.location());
+    glVertexAttribPointer(attrib.location(), attrib.size(), attrib.type(),
+                          attrib.normalized(), attrib.stride(), offset);
+
+    return *this;
+  }
+
+  IVertexBufferObject &copySubData(GLintptr offset, GLsizeiptr memorySize,
+                                   const void *memory) override {
+    bind();
+    glBufferSubData(BufferType, offset, memorySize, memory);
+
+    return *this;
+  }
+
+  void *memoryMapToRead(GLintptr offset, GLsizeiptr length) override {
+    bind();
+    return memoryMap(length, offset, GL_MAP_READ_BIT);
+  }
+
+  void *memoryMapToWrite(GLintptr offset, GLsizeiptr length) override {
+    bind();
+    return memoryMap(length, offset, GL_MAP_WRITE_BIT);
+  }
+
+  IVertexBufferObject &memoryUnmap() override {
+    bind();
+    glUnmapBuffer(BufferType);
 		return *this;
-	}
+  }
 
-	IBindable & unbind(GLuint oldBind = 0) override {
-		glBindBuffer(BufferType, oldBind);
-		return *this;
-	}
-
-	IVertexBufferObject & setData(GLsizeiptr memorySize, const void *memory) override {
-		bind();
-		glBufferData(BufferType, memorySize, memory, BufferUsage);
-		return *this;
-	}
-
-	IVertexBufferObject & removeData() override {
-		bind();
-		glBufferData(BufferType, 0, NULL, BufferUsage);
-		return *this;
-	}
-
-	IVertexBufferObject & setVertexAttribute(IAttribute &attrib, const void *offset) override {
-		bind();
-		glEnableVertexAttribArray(attrib.location());
-		glVertexAttribPointer(attrib.location(), attrib.size(), attrib.type(), attrib.normalized(), attrib.stride(), offset);
-
-		return *this;
-	}
-
-	IVertexBufferObject & copySubData(GLintptr offset, GLsizeiptr memorySize, const void *memory) override {
-		bind();
-		glBufferSubData(BufferType, offset, memorySize, memory);
-
-		return *this;
-	}
-
-	void * memoryMapToRead(GLintptr offset, GLsizeiptr length) override {
-		bind();
-		return memoryMap(length, offset, GL_MAP_READ_BIT);
-	}
-
-	void * memoryMapToWrite(GLintptr offset, GLsizeiptr length) override {
-		bind();
-		return memoryMap(length, offset, GL_MAP_WRITE_BIT);
-	}
-
-	IVertexBufferObject & memoryUnmap() override {
-		bind();
-		glUnmapBuffer(BufferType);
-	}
-
-	~VertexBufferObject() {
-		bind();
-		glDeleteBuffers(1, &id_);
-	}
-
+  ~VertexBufferObject() {
+    bind();
+    glDeleteBuffers(1, &id_);
+  }
 };
 
 } // namespace render

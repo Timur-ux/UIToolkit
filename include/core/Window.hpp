@@ -48,7 +48,7 @@ public:
   IWindow &fullscreen() override;
   IWindow &windowed() override;
 
-  void startRenderLoop() override;
+  void startRenderLoop(std::function<void()> & renderFunc) override;
 
   Size size() const { return Size{.width = width_, .height = height_}; }
 	Position position() const {return Position{.x = windowX_, .y = windowY_};}

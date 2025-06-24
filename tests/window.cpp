@@ -4,6 +4,7 @@
 #include "core/Mouse.hpp"
 #include "event.hpp"
 #include <GLFW/glfw3.h>
+#include <functional>
 #include <iostream>
 #include <memory>
 
@@ -84,8 +85,9 @@ int main(int argc, char *argw[]) {
     }
 	}};
 
+	std::function<void()> renderFunc = [](){};
 	window.keyboard.onButtonPress += &pressHandler;
-	window.startRenderLoop();
+	window.startRenderLoop(renderFunc);
 	window.keyboard.onButtonPress -= &pressHandler;
 
   return 0;
