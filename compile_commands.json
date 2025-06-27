@@ -67,6 +67,12 @@
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/glCheckError.cpp.o -c /home/raison/git/UIToolkit/src/glCheckError.cpp",
+  "file": "/home/raison/git/UIToolkit/src/glCheckError.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/glCheckError.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
   "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/main.dir/main.cpp.o -c /home/raison/git/UIToolkit/main.cpp",
   "file": "/home/raison/git/UIToolkit/main.cpp",
   "output": "CMakeFiles/main.dir/main.cpp.o"

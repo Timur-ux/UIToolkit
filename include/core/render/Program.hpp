@@ -14,6 +14,7 @@ public:
 	Program(std::string fileName);
 	~Program();
 
+	GLuint id() const {return id_;}
 	IBindable & bind() override;
 	IBindable & unbind(GLuint oldBind = 0) override;
 	GLuint getCurrentBind() override;

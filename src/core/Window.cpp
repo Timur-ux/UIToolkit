@@ -57,10 +57,11 @@ void Window::startRenderLoop(std::function<void()> & renderFunc) {
 
 	while(!glfwWindowShouldClose(window_)) {
 		glfwSwapBuffers(window_);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glfwPollEvents();
-		renderFunc();
 		updateViewport();
+		renderFunc();
 	}
 };
 

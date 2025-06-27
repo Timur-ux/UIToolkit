@@ -10,3 +10,7 @@ verbose:
 	mv ./build/compile_commands.json .
 	cmake --build  ./build --verbose
 
+generate:
+		cmake -S . -B ./build -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+		mv ./build/compile_commands.json .
+
