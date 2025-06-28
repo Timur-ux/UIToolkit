@@ -3,9 +3,9 @@
 #version 330 core 
 
 layout (location = 0) in vec3 coord;
-layout (location = 1) in vec4 color;
+layout (location = 1) in vec3 color;
 
-out vec4 fgColor;
+out vec3 fgColor;
 
 void main() {
 	gl_Position = vec4(coord, 1.0);
@@ -17,9 +17,9 @@ void main() {
 #version 330 core
 
 out vec4 outColor;
-in vec4 fgColor;
+in vec3 fgColor;
 
 void main() {
-	outColor = fgColor;
+	outColor = vec4(fgColor, 1.0);
 }
 

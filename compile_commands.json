@@ -1,91 +1,73 @@
 [
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Keyboard.cpp.o -c /home/raison/git/UIToolkit/src/core/Keyboard.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Keyboard.cpp.o -c /home/raison/git/UIToolkit/src/core/Keyboard.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/Keyboard.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/Keyboard.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Mouse.cpp.o -c /home/raison/git/UIToolkit/src/core/Mouse.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Mouse.cpp.o -c /home/raison/git/UIToolkit/src/core/Mouse.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/Mouse.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/Mouse.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Window.cpp.o -c /home/raison/git/UIToolkit/src/core/Window.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/Window.cpp.o -c /home/raison/git/UIToolkit/src/core/Window.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/Window.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/Window.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/AttributeSetter.cpp.o -c /home/raison/git/UIToolkit/src/core/render/AttributeSetter.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/AttributeSetter.cpp.o -c /home/raison/git/UIToolkit/src/core/render/AttributeSetter.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/render/AttributeSetter.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/render/AttributeSetter.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/Mesh.cpp.o -c /home/raison/git/UIToolkit/src/core/render/Mesh.cpp",
-  "file": "/home/raison/git/UIToolkit/src/core/render/Mesh.cpp",
-  "output": "CMakeFiles/src_lib.dir/src/core/render/Mesh.cpp.o"
-},
-{
-  "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/MeshAttributeSetters.cpp.o -c /home/raison/git/UIToolkit/src/core/render/MeshAttributeSetters.cpp",
-  "file": "/home/raison/git/UIToolkit/src/core/render/MeshAttributeSetters.cpp",
-  "output": "CMakeFiles/src_lib.dir/src/core/render/MeshAttributeSetters.cpp.o"
-},
-{
-  "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/Program.cpp.o -c /home/raison/git/UIToolkit/src/core/render/Program.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/Program.cpp.o -c /home/raison/git/UIToolkit/src/core/render/Program.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/render/Program.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/render/Program.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/Vertex.cpp.o -c /home/raison/git/UIToolkit/src/core/render/Vertex.cpp",
-  "file": "/home/raison/git/UIToolkit/src/core/render/Vertex.cpp",
-  "output": "CMakeFiles/src_lib.dir/src/core/render/Vertex.cpp.o"
-},
-{
-  "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/KeyboardClick.cpp.o -c /home/raison/git/UIToolkit/src/events/KeyboardClick.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/KeyboardClick.cpp.o -c /home/raison/git/UIToolkit/src/events/KeyboardClick.cpp",
   "file": "/home/raison/git/UIToolkit/src/events/KeyboardClick.cpp",
   "output": "CMakeFiles/src_lib.dir/src/events/KeyboardClick.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/MouseClick.cpp.o -c /home/raison/git/UIToolkit/src/events/MouseClick.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/MouseClick.cpp.o -c /home/raison/git/UIToolkit/src/events/MouseClick.cpp",
   "file": "/home/raison/git/UIToolkit/src/events/MouseClick.cpp",
   "output": "CMakeFiles/src_lib.dir/src/events/MouseClick.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/MouseMove.cpp.o -c /home/raison/git/UIToolkit/src/events/MouseMove.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/events/MouseMove.cpp.o -c /home/raison/git/UIToolkit/src/events/MouseMove.cpp",
   "file": "/home/raison/git/UIToolkit/src/events/MouseMove.cpp",
   "output": "CMakeFiles/src_lib.dir/src/events/MouseMove.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/glCheckError.cpp.o -c /home/raison/git/UIToolkit/src/glCheckError.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/glCheckError.cpp.o -c /home/raison/git/UIToolkit/src/glCheckError.cpp",
   "file": "/home/raison/git/UIToolkit/src/glCheckError.cpp",
   "output": "CMakeFiles/src_lib.dir/src/glCheckError.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/main.dir/main.cpp.o -c /home/raison/git/UIToolkit/main.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/main.dir/main.cpp.o -c /home/raison/git/UIToolkit/main.cpp",
   "file": "/home/raison/git/UIToolkit/main.cpp",
   "output": "CMakeFiles/main.dir/main.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build/tests",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/window.dir/window.cpp.o -c /home/raison/git/UIToolkit/tests/window.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/window.dir/window.cpp.o -c /home/raison/git/UIToolkit/tests/window.cpp",
   "file": "/home/raison/git/UIToolkit/tests/window.cpp",
   "output": "tests/CMakeFiles/window.dir/window.cpp.o"
 },
 {
   "directory": "/home/raison/git/UIToolkit/build/tests",
-  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/src_lib -I/home/raison/git/UIToolkit/PUBLIC -I/home/raison/git/UIToolkit/include -std=gnu++20 -g -o CMakeFiles/renderBox.dir/renderBox.cpp.o -c /home/raison/git/UIToolkit/tests/renderBox.cpp",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/renderBox.dir/renderBox.cpp.o -c /home/raison/git/UIToolkit/tests/renderBox.cpp",
   "file": "/home/raison/git/UIToolkit/tests/renderBox.cpp",
   "output": "tests/CMakeFiles/renderBox.dir/renderBox.cpp.o"
 }

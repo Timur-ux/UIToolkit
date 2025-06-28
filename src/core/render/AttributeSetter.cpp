@@ -12,11 +12,12 @@ IAttributeSetter &AttributeSetter::addAttribute(AttributeSetterData data) {
 
   auto attributeSetterItem = std::make_unique<AttributeSetterItem>(data);
   existingAttributes_[data.attribute->location()] = attributeSetterItem.get();
-  if (setterDI_)
+	if (setterDI_)
     setterDI_->inject(std::move(attributeSetterItem));
-  setterDI_ = std::move(attributeSetterItem);
+	else
+		setterDI_ = std::move(attributeSetterItem);
 
-  totalMemorySize_ += data.dataSize;
+	totalMemorySize_ += data.dataSize;
 
   return *this;
 }
