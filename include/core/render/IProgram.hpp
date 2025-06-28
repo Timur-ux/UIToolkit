@@ -13,7 +13,7 @@ using uniform_setter = std::function<void(GLuint programId)>;
 
 class IProgram : public IBindable<GLuint> {
 public:
-	virtual void setUniform(uniform_setter &) = 0;
+	virtual void setUniform(uniform_setter) = 0;
 	virtual void linkShader(GLuint shaderId) = 0;
 	virtual GLint getUniformLocation(const std::string & name) const = 0; 
 	virtual GLint getAttribLocation(const std::string & name) const = 0;

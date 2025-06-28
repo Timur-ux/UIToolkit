@@ -41,9 +41,8 @@ ui::IWindow & Window::close() {
 
 void Window::updateViewport() {
 	assert(window_);
-	glfwGetWindowPos(window_, &windowX_, &windowY_);
 	glfwGetWindowSize(window_, &width_, &height_);
-	glViewport(windowX_, windowY_, width_, height_);
+	glViewport(0, 0, width_, height_);
 }
 
 Window::~Window() {

@@ -11,6 +11,11 @@
 #include "utils/strfast.hpp"
 #include <cassert>
 #include <cstring>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <iostream>
 #include <memory>
 #include <stdexcept>
 
@@ -24,12 +29,14 @@ template <RenderType TRender> class MeshBase : public IMesh {
   AttributeSetter attributeSetter_;
   size_t nVertexes_ = 0;
 
+  bool isInitialized = false, modelChanged_ = true;
+  glm::mat4 model_{1};
+  glm::vec3 position_{0, 0, 0};
+
   void initRegistredAttributes() {
     BindLock<GLuint> lock(vao_);
     attributeSetter_.setAttributesTo(attribVbo_);
   }
-
-  bool isInitialized = false;
 
 public:
   MeshBase(std::shared_ptr<IProgram> renderProgram)
@@ -46,6 +53,20 @@ public:
       initRegistredAttributes();
       isInitialized = true;
     }
+
+		if(modelChanged_) {
+			glm::mat4 model = model_;
+			GLint location = renderProgram_->getUniformLocation("model");
+			if(location < 0) 
+				throw std::invalid_argument(utils::strfast() << "Uniform [" << "model" << "] doesn't exist in render program");
+				
+			auto uniformSetter = [&model, location](GLuint programId){
+				glProgramUniformMatrix4fv(programId, location, 1, GL_FALSE, glm::value_ptr(model));
+			};
+			renderProgram_->setUniform(uniformSetter);
+
+			modelChanged_ = false;
+		}
 
     BindLock<GLuint> lock1(vao_), lock2(*renderProgram_);
     glDrawElements(GLenum(TRender), GLsizei(nVertexes_), GL_UNSIGNED_BYTE, 0);
@@ -134,6 +155,26 @@ public:
   }
 
   size_t nVertexes() const { return nVertexes_; }
+
+  glm::vec3 position() const override { return position_; }
+
+  IMesh &shiftBy(glm::vec3 vec) override {
+    position_ += vec;
+    model_ = glm::translate(model_, vec);
+    modelChanged_ = true;
+    return *this;
+  }
+
+  IMesh &moveTo(glm::vec3 position) override {
+    modelChanged_ = true;
+    return shiftBy(position - position_);
+  }
+
+  IMesh &scale(glm::vec3 axisScaleFactors) override {
+    model_ = glm::scale(model_, axisScaleFactors);
+    modelChanged_ = true;
+    return *this;
+  }
 };
 } // namespace core::render
 

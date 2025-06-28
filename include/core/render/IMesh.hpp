@@ -36,6 +36,14 @@ public:
 	virtual IMesh & setCustomAttribute(std::shared_ptr<IAttribute> & attrib, std::shared_ptr<GLbyte[]> data, GLsizeiptr dataSize) = 0;
 
 	virtual ~IMesh() = default;
+
+	// ------------------------------------
+	// |  position and scaling methods  |
+	// ------------------------------------
+	virtual glm::vec3 position() const = 0;
+	virtual IMesh & shiftBy(glm::vec3 vec) = 0;
+	virtual IMesh & moveTo(glm::vec3 position) = 0;
+	virtual IMesh & scale(glm::vec3 axisScaleFactors) = 0;
 };
 
 } // namespace core::render

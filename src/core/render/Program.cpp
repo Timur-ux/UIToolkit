@@ -85,7 +85,7 @@ GLuint Program::getCurrentBind() {
 	return result;
 }
 
-void Program::setUniform(uniform_setter &setter) {
+void Program::setUniform(uniform_setter setter) {
 	bind();
 	setter(id_);
 	unbind();
