@@ -15,7 +15,8 @@ class IProgram : public IBindable<GLuint> {
 public:
 	virtual void setUniform(uniform_setter &) = 0;
 	virtual void linkShader(GLuint shaderId) = 0;
-	virtual GLint getUniformLocation(std::string name) = 0; 
+	virtual GLint getUniformLocation(const std::string & name) const = 0; 
+	virtual GLint getAttribLocation(const std::string & name) const = 0;
 
 	virtual ~IProgram() = default;
 };

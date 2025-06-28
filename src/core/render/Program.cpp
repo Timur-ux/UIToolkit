@@ -60,8 +60,11 @@ void Program::linkShader(GLuint shaderId) {
 }
 
 
-GLint Program::getUniformLocation(std::string name) {
+GLint Program::getUniformLocation(const std::string & name) const {
 	return glGetUniformLocation(id_, name.c_str());
+}
+GLint Program::getAttribLocation(const std::string & name) const {
+	return glGetAttribLocation(id_, name.c_str());
 }
 
 IBindable<GLuint> & Program::bind() {

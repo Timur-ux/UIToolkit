@@ -3,17 +3,20 @@
 
 using namespace core::render;
 
-IAttributeSetter &
-AttributeSetter::addAttribute(std::shared_ptr<IAttribute> attribute,
-                              std::shared_ptr<GLbyte[]> memory,
-                              GLintptr memorySize) {
-  if (setterDI_)
-    setterDI_->inject(std::move(
-        std::make_unique<AttributeSetterItem>(attribute, memory, memorySize)));
-  setterDI_ =
-      std::make_unique<AttributeSetterItem>(attribute, memory, memorySize);
+IAttributeSetter &AttributeSetter::addAttribute(AttributeSetterData data) {
 
-  totalMemorySize_ += memorySize;
+  if (existingAttributes_.contains(data.attribute->location())) {
+    existingAttributes_[data.attribute->location()]->replaceAttributeTo(data);
+    return *this;
+  }
+
+  auto attributeSetterItem = std::make_unique<AttributeSetterItem>(data);
+  existingAttributes_[data.attribute->location()] = attributeSetterItem.get();
+  if (setterDI_)
+    setterDI_->inject(std::move(attributeSetterItem));
+  setterDI_ = std::move(attributeSetterItem);
+
+  totalMemorySize_ += data.dataSize;
 
   return *this;
 }
@@ -25,14 +28,19 @@ IAttributeSetter &AttributeSetter::setAttributesTo(IVertexBufferObject &vbo) {
   return *this;
 }
 
-AttributeSetterItem::AttributeSetterItem(std::shared_ptr<IAttribute> attribute,
-                                         std::shared_ptr<GLbyte[]> data,
-                                         GLsizeiptr dataSize)
+AttributeSetterItem::AttributeSetterItem(AttributeSetterData data)
 
     : deps::DI<IVertexBufferObject &, GLintptr &>(
-          [attribute, data, dataSize](IVertexBufferObject &vbo,
-                                      GLintptr &offset) {
-            vbo.copySubData(offset, dataSize, data.get());
-            vbo.setVertexAttribute(*attribute, (const void *)offset);
-            offset += dataSize;
+          [data](IVertexBufferObject &vbo, GLintptr &offset) {
+            vbo.copySubData(offset, data.dataSize, data.data.get());
+            vbo.setVertexAttribute(*data.attribute, (const void *)offset);
+            offset += data.dataSize;
           }) {}
+
+void AttributeSetterItem::replaceAttributeTo(AttributeSetterData data) {
+  handler_ = [data](IVertexBufferObject &vbo, GLintptr &offset) {
+    vbo.copySubData(offset, data.dataSize, data.data.get());
+    vbo.setVertexAttribute(*data.attribute, (const void *)offset);
+    offset += data.dataSize;
+  };
+}

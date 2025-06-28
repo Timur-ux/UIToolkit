@@ -20,7 +20,8 @@ public:
 	GLuint getCurrentBind() override;
 	void setUniform(uniform_setter &) override;
 	void linkShader(GLuint shaderId) override;
-	GLint getUniformLocation(std::string name) override;
+	GLint getUniformLocation(const std::string & name) const override;
+	GLint getAttribLocation(const std::string &name) const override;
 };
 
 } // namespace core::render

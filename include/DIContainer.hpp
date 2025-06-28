@@ -10,6 +10,7 @@ namespace deps {
 template <typename ...Args>
 class DI {
 	std::unique_ptr<DI<Args...>> next_ = {nullptr};
+protected:
 	std::function<void(Args...)> handler_;
 public:
 	DI(std::function<void(Args...)> handler)
