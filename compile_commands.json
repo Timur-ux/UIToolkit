@@ -19,6 +19,12 @@
 },
 {
   "directory": "/home/raison/git/UIToolkit/build",
+  "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/primitives/Rectangle.cpp.o -c /home/raison/git/UIToolkit/src/core/primitives/Rectangle.cpp",
+  "file": "/home/raison/git/UIToolkit/src/core/primitives/Rectangle.cpp",
+  "output": "CMakeFiles/src_lib.dir/src/core/primitives/Rectangle.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build",
   "command": "/usr/bin/c++ -DDEBUG -DFMT_HEADER_ONLY=1 -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -DOIIO_STATIC_DEFINE=1 -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -isystem /opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/src_lib.dir/src/core/render/AttributeSetter.cpp.o -c /home/raison/git/UIToolkit/src/core/render/AttributeSetter.cpp",
   "file": "/home/raison/git/UIToolkit/src/core/render/AttributeSetter.cpp",
   "output": "CMakeFiles/src_lib.dir/src/core/render/AttributeSetter.cpp.o"

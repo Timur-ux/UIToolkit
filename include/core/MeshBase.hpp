@@ -19,7 +19,7 @@ template <RenderType TRender> class MeshBase : public IMesh {
   VertexArrayObject vao_;
   VertexBufferObject<GL_ARRAY_BUFFER, GL_STATIC_DRAW> attribVbo_;
   VertexBufferObject<GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_READ> indexVbo_;
-	std::shared_ptr<IProgram> renderProgram_;
+  std::shared_ptr<IProgram> renderProgram_;
 
   AttributeSetter attributeSetter_;
   size_t nVertexes_ = 0;
@@ -29,11 +29,11 @@ template <RenderType TRender> class MeshBase : public IMesh {
     attributeSetter_.setAttributesTo(attribVbo_);
   }
 
-	bool isInitialized = false;
+  bool isInitialized = false;
 
 public:
   MeshBase(std::shared_ptr<IProgram> renderProgram)
-		: renderProgram_(renderProgram){
+      : renderProgram_(renderProgram) {
     {
       BindLock<GLuint> lock{vao_};
       attribVbo_.bind(), indexVbo_.bind();
@@ -42,16 +42,16 @@ public:
   }; // namespace core::render
 
   IEntity &render() override {
-		if(!isInitialized) {
-			initRegistredAttributes();
-			isInitialized = true;
-		}
+    if (!isInitialized) {
+      initRegistredAttributes();
+      isInitialized = true;
+    }
 
-		BindLock<GLuint> lock1(vao_), lock2(*renderProgram_);
-		glDrawElements(GLenum(TRender), GLsizei(nVertexes_), GL_UNSIGNED_BYTE, 0);
+    BindLock<GLuint> lock1(vao_), lock2(*renderProgram_);
+    glDrawElements(GLenum(TRender), GLsizei(nVertexes_), GL_UNSIGNED_BYTE, 0);
 
-		return *this;
-	}
+    return *this;
+  }
 
   constexpr RenderType renderType() const override { return TRender; }
   const IProgram &renderProgram() const override { return *renderProgram_; }
@@ -59,7 +59,7 @@ public:
   IMesh &setVertexes(const std::vector<glm::vec3> &vertexes,
                      const std::vector<GLubyte> &indexes,
                      std::string vertexAttribName = "coord") override {
-		isInitialized = false;
+    isInitialized = false;
     GLint location = renderProgram_->getAttribLocation(vertexAttribName);
 
     if (vertexes.size() != indexes.size())
@@ -79,12 +79,12 @@ public:
     attributeSetter_.addAttribute(AttributeSetterData{
         .attribute = attribData, .data = memory, .dataSize = memorySize});
     indexVbo_.setData(sizeof(GLubyte) * indexes.size(), indexes.data());
-		return *this;
+    return *this;
   }
 
   IMesh &setColor(const std::vector<glm::vec3> &colors,
                   std::string colorAttribName = "color") override {
-		isInitialized = false;
+    isInitialized = false;
     GLint location = renderProgram_->getAttribLocation(colorAttribName);
 
     if (colors.size() != nVertexes_)
@@ -104,7 +104,7 @@ public:
 
     attributeSetter_.addAttribute(AttributeSetterData{
         .attribute = attribData, .data = memory, .dataSize = memorySize});
-		return *this;
+    return *this;
   }
 
   IMesh &
@@ -112,15 +112,15 @@ public:
              const std::vector<GLfloat> &textureCoords,
              std::string textureCoordsAttribName = "textureCoord") override {
 
-		isInitialized = false;
+    isInitialized = false;
     throw std::runtime_error("Texture support not realized yet");
-		return *this;
+    return *this;
   }
 
   IMesh &setCustomAttribute(std::shared_ptr<IAttribute> &attrib,
                             std::shared_ptr<GLbyte[]> data,
                             GLsizeiptr dataSize) override {
-		isInitialized = false;
+    isInitialized = false;
     if (dataSize / attrib->stride() != nVertexes_)
       throw std::invalid_argument(
           utils::strfast()
@@ -130,8 +130,10 @@ public:
     attributeSetter_.addAttribute(
         {.attribute = attrib, .data = data, .dataSize = dataSize});
 
-		return *this;
+    return *this;
   }
+
+  size_t nVertexes() const { return nVertexes_; }
 };
 } // namespace core::render
 
