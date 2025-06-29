@@ -5,10 +5,10 @@ namespace core::primitives {
 Rectangle::Rectangle(std::shared_ptr<render::IProgram> program) 
 	: parent_t(program) {
 		std::vector<glm::vec3> coords{
-			{-1, -1, 0},
-			{1, -1, 0},
+			{0, 0, 0},
+			{1, 0, 0},
 			{1, 1, 0},
-			{-1, 1, 0}
+			{0, 1, 0}
 		};
 	
 		std::vector<GLubyte> indexes{0, 1, 2, 3};

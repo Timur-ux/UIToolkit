@@ -2,6 +2,7 @@
 #define UI_MESH_BASE_HPP_
 
 #include "IBindable.hpp"
+#include "utils/printGlm.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include "core/render/AttributeSetter.hpp"
 #include "core/render/IMesh.hpp"
@@ -29,9 +30,9 @@ template <RenderType TRender> class MeshBase : public IMesh {
   AttributeSetter attributeSetter_;
   size_t nVertexes_ = 0;
 
-  bool isInitialized = false, modelChanged_ = true;
+  bool isInitialized = false;
   glm::mat4 model_{1};
-  glm::vec3 position_{0, 0, 0};
+  glm::vec3 position_{0, 0, 0}, size_{1., 1., 1.};
 
   void initRegistredAttributes() {
     BindLock<GLuint> lock(vao_);
@@ -54,19 +55,15 @@ public:
       isInitialized = true;
     }
 
-		if(modelChanged_) {
-			glm::mat4 model = model_;
-			GLint location = renderProgram_->getUniformLocation("model");
-			if(location < 0) 
-				throw std::invalid_argument(utils::strfast() << "Uniform [" << "model" << "] doesn't exist in render program");
-				
-			auto uniformSetter = [&model, location](GLuint programId){
-				glProgramUniformMatrix4fv(programId, location, 1, GL_FALSE, glm::value_ptr(model));
-			};
-			renderProgram_->setUniform(uniformSetter);
-
-			modelChanged_ = false;
-		}
+		glm::mat4 model = model_;
+		GLint location = renderProgram_->getUniformLocation("model");
+		if(location < 0) 
+			throw std::invalid_argument(utils::strfast() << "Uniform [" << "model" << "] doesn't exist in render program");
+			
+		auto uniformSetter = [&model, location](GLuint programId){
+			glProgramUniformMatrix4fv(programId, location, 1, GL_FALSE, glm::value_ptr(model));
+		};
+		renderProgram_->setUniform(uniformSetter);
 
     BindLock<GLuint> lock1(vao_), lock2(*renderProgram_);
     glDrawElements(GLenum(TRender), GLsizei(nVertexes_), GL_UNSIGNED_BYTE, 0);
@@ -160,19 +157,19 @@ public:
 
   IMesh &shiftBy(glm::vec3 vec) override {
     position_ += vec;
+		vec /= size_;
     model_ = glm::translate(model_, vec);
-    modelChanged_ = true;
     return *this;
   }
 
   IMesh &moveTo(glm::vec3 position) override {
-    modelChanged_ = true;
     return shiftBy(position - position_);
   }
 
   IMesh &scale(glm::vec3 axisScaleFactors) override {
+		size_ = size_ * axisScaleFactors;
+		std::cout << size_ << std::endl;
     model_ = glm::scale(model_, axisScaleFactors);
-    modelChanged_ = true;
     return *this;
   }
 };
