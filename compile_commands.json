@@ -82,5 +82,11 @@
   "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/modelTest.dir/modelTest.cpp.o -c /home/raison/git/UIToolkit/tests/modelTest.cpp",
   "file": "/home/raison/git/UIToolkit/tests/modelTest.cpp",
   "output": "tests/CMakeFiles/modelTest.dir/modelTest.cpp.o"
+},
+{
+  "directory": "/home/raison/git/UIToolkit/build/tests",
+  "command": "/usr/bin/c++ -DDEBUG -DGLEW_NO_GLU -DGLFW_INCLUDE_NONE -I/home/raison/git/UIToolkit/include -I/opt/vcpkg/installed/opt/vcpkg/installed/x64-linux/include -std=gnu++20 -g -o CMakeFiles/modelAndProjection.dir/modelAndProjection.cpp.o -c /home/raison/git/UIToolkit/tests/modelAndProjection.cpp",
+  "file": "/home/raison/git/UIToolkit/tests/modelAndProjection.cpp",
+  "output": "tests/CMakeFiles/modelAndProjection.dir/modelAndProjection.cpp.o"
 }
 ]
