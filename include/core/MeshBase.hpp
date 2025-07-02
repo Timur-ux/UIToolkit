@@ -2,7 +2,7 @@
 #define UI_MESH_BASE_HPP_
 
 #include "IBindable.hpp"
-#include "utils/printGlm.hpp"
+#include "core/IModel.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include "core/render/AttributeSetter.hpp"
 #include "core/render/IMesh.hpp"
@@ -16,7 +16,6 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 
@@ -155,20 +154,20 @@ public:
 
   glm::vec3 position() const override { return position_; }
 
-  IMesh &shiftBy(glm::vec3 vec) override {
+	
+	
+  IModel &shiftBy(const glm::vec3 & vec) override {
     position_ += vec;
-		vec /= size_;
-    model_ = glm::translate(model_, vec);
+    model_ = glm::translate(model_, vec / size_);
     return *this;
   }
 
-  IMesh &moveTo(glm::vec3 position) override {
+  IModel &moveTo(const glm::vec3 & position) override {
     return shiftBy(position - position_);
   }
 
-  IMesh &scale(glm::vec3 axisScaleFactors) override {
+  IModel &scale(const glm::vec3 & axisScaleFactors) override {
 		size_ = size_ * axisScaleFactors;
-		std::cout << size_ << std::endl;
     model_ = glm::scale(model_, axisScaleFactors);
     return *this;
   }

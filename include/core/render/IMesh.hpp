@@ -5,6 +5,7 @@
 // --------------------
 
 #include "IEntity.hpp"
+#include "core/IModel.hpp"
 #include "core/OpenGLHeaders.hpp"
 #include "core/render/Attribute.hpp"
 #include "core/render/IProgram.hpp"
@@ -24,7 +25,7 @@ enum class RenderType {
 	LINE_LOOP = GL_LINE_LOOP
 };
 
-class IMesh : public ui::IEntity {
+class IMesh : public ui::IEntity, public IModel {
 public:
   virtual IEntity &render() = 0;
 	virtual RenderType renderType() const = 0;
@@ -37,13 +38,7 @@ public:
 
 	virtual ~IMesh() = default;
 
-	// ------------------------------------
-	// |  position and scaling methods  |
-	// ------------------------------------
 	virtual glm::vec3 position() const = 0;
-	virtual IMesh & shiftBy(glm::vec3 vec) = 0;
-	virtual IMesh & moveTo(glm::vec3 position) = 0;
-	virtual IMesh & scale(glm::vec3 axisScaleFactors) = 0;
 };
 
 } // namespace core::render
